@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap React</title>
+    <script src="js/react.min.js"></script>
+    <script src="js/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app"></div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+
+<script type="text/babel">
+    //Navbar components
+
+    var Navbar = React.createClass({
+        render: function(){
+            return(<div>
+                        <nav className="navbar navbar-static-top navbar-dark bg-inverse">
+                            <a className="navbar-brand" href="#">My Website</a>
+                            <ul className="nav navbar-nav">
+                                 <li className="nav-item active">
+                                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">About</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Contact</a>
+                                </li>
+                             </ul>
+                        </nav>
+                    </div>)
+        }
+    });
+
+
+//    Jumbotron
+
+    var Jumbotron = React.createClass({
+        render: function () {
+            return(
+                    <div className="jumbotron">
+                        <div className="container">
+                             <h1 className="display-3">Hello, world!</h1>
+
+                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+                            jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+                            unique.</p>
+
+                            <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                        </div>
+                    </div>
+            )
+        }
+    });
+
+
+
+    //Homepage Component
+    var PageHome = React.createClass({
+        render: function () {
+            return(
+                    <div className="container">
+                        <div className="row">
+                         Main Content
+                        </div>
+                    </div>
+
+            )
+        }
+    });
+
+
+//Footer
+
+    var Footer = React.createClass({
+        render: function () {
+            return(
+
+                    <div className="container">
+                    <hr />
+                    <footer>
+                    <p>&copy; My Website 2016</p>
+                    </footer>
+                    </div>
+            )
+        }
+    })
+
+
+//Main App
+    var App = React.createClass({
+        render: function () {
+            return(
+                    <div>
+                    <Navbar />
+                    <Jumbotron />
+                    <PageHome />
+                    <Footer />
+                    </div>
+
+            )
+        }
+    });
+    ReactDOM.render(<App />, document.getElementById("app"));
+</script>
+</body>
+</html>
