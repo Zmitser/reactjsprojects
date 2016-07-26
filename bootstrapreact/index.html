@@ -20,19 +20,46 @@
     //Navbar components
 
     var Navbar = React.createClass({
+
+        propTypes: {
+            brand: React.PropTypes.string.isRequired
+        },
+
+
+        getDefaultProps: function () {
+            return {
+                brand: "This Website",
+                color: 'dark'
+            }
+        },
         render: function(){
+            if(this.props.color == "dark"){
+                var navClass = 'navbar navbar-dark bg-inverse'
+            }
+            else {
+                var navClass = 'navbar navbar-light bg-faded'
+            }
+
+            var homeActive = '';
+            var aboutActive = '';
+
+            if(this.props.page == 'home'){
+                homeActive = 'nav-item active',
+                aboutActive = 'nav-item'
+            }else if (this.props.page == 'about'){
+                aboutActive = 'nav-item active',
+                homeActive = 'nav-item'
+            }
+
             return(<div>
-                        <nav className="navbar navbar-static-top navbar-dark bg-inverse">
-                            <a className="navbar-brand" href="#">My Website</a>
+                        <nav className={navClass}>
+                            <a className="navbar-brand" href="#">{this.props.brand}</a>
                             <ul className="nav navbar-nav">
-                                 <li className="nav-item active">
-                                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                                 <li className={homeActive}>
+                                    <a onClick={this.props.homeClick} className="nav-link" href="#">Home</a>
                                 </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">About</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Contact</a>
+                                <li className={aboutActive}>
+                                    <a onClick={this.props.aboutClick} className="nav-link" href="#">About</a>
                                 </li>
                              </ul>
                         </nav>
@@ -44,17 +71,30 @@
 //    Jumbotron
 
     var Jumbotron = React.createClass({
+
+        propTypes: {
+            heading: React.PropTypes.string,
+            text: React.PropTypes.string,
+            link: React.PropTypes.string,
+        },
+
+        getDefaultProps: function () {
+            return{
+                heading: 'Welcome!',
+                text: 'Welcome to our shiny new website built with React components',
+                link: 'http://google.com'
+            }
+        },
+
         render: function () {
             return(
                     <div className="jumbotron">
                         <div className="container">
-                             <h1 className="display-3">Hello, world!</h1>
+                             <h1 className="display-3">{this.props.heading}</h1>
 
-                            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
-                            jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-                            unique.</p>
+                            <p>{this.props.text}</p>
 
-                            <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+                            <p><a className="btn btn-primary btn-lg" href={this.props.link} role="button">Learn more &raquo;</a></p>
                         </div>
                     </div>
             )
@@ -69,7 +109,8 @@
             return(
                     <div className="container">
                         <div className="row">
-                         Main Content
+                    <h2 className="page-header">Welcome</h2>
+            <p>Some Content</p>
                         </div>
                     </div>
 
@@ -77,17 +118,38 @@
         }
     });
 
+    //Aboutpage Component
+    var PageAbout = React.createClass({
+        render: function () {
+            return(
+                    <div className="container">
+                    <div className="row">
+                    <h2 className="page-header">About Us</h2>
+                    <p>Some Content</p>
+            </div>
+            </div>
+
+            )
+        }
+    });
 
 //Footer
 
     var Footer = React.createClass({
+        getDefaultProps: function () {
+            return {
+                website: 'My Super Website',
+                copy_year: 2016
+            }
+        },
+
         render: function () {
             return(
 
                     <div className="container">
                     <hr />
                     <footer>
-                    <p>&copy; My Website 2016</p>
+                    <p>&copy; {this.props.website} {this.props.copy_year}</p>
                     </footer>
                     </div>
             )
@@ -97,12 +159,40 @@
 
 //Main App
     var App = React.createClass({
+        getInitialState: function () {
+            return {
+                page: 'home'
+            }
+        },
+        handleHomeClick: function () {
+            this.setState({
+                page: 'home'
+            })
+        },
+        handleAboutClick: function () {
+            this.setState({
+                page: 'about'
+            })
+        },
         render: function () {
+            if (this.state.page == 'home'){
+                var jumbotron = <Jumbotron />
+                var page = <PageHome />
+            } else if (this.state.page='about'){
+                var jumbotron = '';
+                var page = <PageAbout />
+            }
+
+
             return(
                     <div>
-                    <Navbar />
-                    <Jumbotron />
-                    <PageHome />
+                    <Navbar
+            page={this.state.page}
+            homeClick={this.handleHomeClick}
+            aboutClick={this.handleAboutClick}
+            />
+                    {jumbotron}
+                    {page}
                     <Footer />
                     </div>
 
