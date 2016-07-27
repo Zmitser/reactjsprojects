@@ -1,0 +1,45 @@
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+
+class Profile extends Component {
+    render() {
+        return (
+            <div>
+                <div className="card">
+                    <div className="card-header">
+                        {this.props.userData.login}
+                    </div>
+                    <div className="card-block">
+                        <div className="row">
+                            <div className="col-md-4"><img src={this.props.userData.avatar_url} className="img-thumbnail img-fluid" alt="Avatart" /></div>
+                            <div className="col-md-8">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <span className="label label-primary">{this.props.userData.public_repos} Repos</span>
+                                        <span className="label label-success">{this.props.userData.public_gists} Gists</span>
+                                        <span className="label label-info">{this.props.userData.followers} Followers</span>
+                                        <span className="label label-danger">{this.props.userData.following} Following</span>
+                                    </div>
+                                </div>
+
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <ul className="list-group">
+                                            <li className="list-group-item"><strong>Username: </strong>{this.props.userData.login}</li>
+                                            <li className="list-group-item"><strong>Location: </strong>{this.props.userData.location}</li>
+                                            <li className="list-group-item"><strong>Email Addres: </strong>{this.props.userData.email}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <br/>
+                                <a className="btn btn-primary" target="_blank" href={this.props.userData.html_url}>Show Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Profile;
