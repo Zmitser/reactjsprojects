@@ -3,14 +3,20 @@ import ReactDOM from 'react-dom';
 
 class Question extends Component {
 
-    onChange(){
-        return;
+    onChange(e){
+        e.preventDefault();
+        const {setCurrent, setScore, question} = this.props;
+        let selected = e.target.value;
+        if (selected == question.correct){
+            setScore(this.props.score + 1)
+        }
+        setCurrent(this.props.current + 1)
     }
     render() {
         const {question} = this.props;
         return (
-            <div className="card">
-                <h3>{question.text}</h3>
+            <div className="card card-inverse" style={{backgroundColor: '#333', borderColor: "#333"}}>
+                <h3 className="card-title">{question.text}</h3>
                 <hr/>
                 <ul className="list-group">
                     {
